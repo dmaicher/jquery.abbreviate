@@ -1,6 +1,8 @@
 jquery.abbreviate
 =================
 
+Abbreviates the text content of elements and adds "more" and "less" links at the end to toggle full/abbreviated content.
+
 Use it like this:
 
     $('.abbreviate_me').abbreviate({
