@@ -55,7 +55,7 @@
             }
 
             var fullContent = node.html();
-            if(typeof options.lessText == "string" && options.lessText.length > 0){
+            if(options.lessText.length){
                 fullContent += " <a href='#' class='abbreviate_less_link'>"+options.lessText+"</a>";
             }
 

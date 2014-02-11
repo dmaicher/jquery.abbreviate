@@ -14,7 +14,7 @@ Use it like this:
     
 The plugin handles HTML tags inside the abbreviated nodes correctly. See an example here:
 
-
+http://jsfiddle.net/JSHhQ/
 
 If the option `lessText` evaluates to false then no link is appended to hide the full text.
 
