@@ -56,17 +56,17 @@
 
             var fullContent = node.html();
             if(options.lessText.length){
-                fullContent += " <a href='#' class='abbreviate_less_link'>"+options.lessText+"</a>";
+                fullContent += " <a href='#' class='abbreviate_less'>"+options.lessText+"</a>";
             }
 
             abbreviateNode(node, {'length' : 0});
 
             var shortContent = node.html();
-            shortContent += options.ellipsis+"<a href='#' class='abbreviate_more_link'>"+options.moreText+"</a>";
+            shortContent += options.ellipsis+"<a href='#' class='abbreviate_more'>"+options.moreText+"</a>";
 
             node.html(shortContent);
-            node.on('click', '.abbreviate_less_link', function(){ node.html(shortContent); return false; });
-            node.on('click', '.abbreviate_more_link', function(){ node.html(fullContent); return false; });
+            node.on('click', '.abbreviate_less', function(){ node.html(shortContent); return false; });
+            node.on('click', '.abbreviate_more', function(){ node.html(fullContent); return false; });
         });
     }
 })(jQuery);
