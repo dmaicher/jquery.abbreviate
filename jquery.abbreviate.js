@@ -1,39 +1,72 @@
 /*
- * abbreviate 1.0 - jQuery plugin for abbreviating text
+ * abbreviate 2.0 - jQuery plugin for abbreviating text
  *
- * Copyright (c) 2012 David Maicher (http://blog.dmaicher.de)
- * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) 
- * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+ * Copyright (c) 2014 David Maicher (http://blog.dmaicher.de)
+ * Licensed under MIT (http://opensource.org/licenses/MIT)
  */
-(function($){
-  $.fn.abbreviate = function(options){       
-    options = $.extend({
-      length : 15,
-      moreText : "more",
-      lessText : "less",
-      findWhiteSpaceLimit : 15
-    }, options);  
-    return this.each(function(){
-      var obj = $(this);
-      var fullText = obj.text();
-      if(fullText.length > options.length){         
-        var shortText = fullText.substr(0, options.length+Math.max(0, fullText.substr(options.length, options.length + options.findWhiteSpaceLimit).indexOf(" ")));       
-        var fullHandler = function(){
-          obj.text(fullText+" ");
-          if(typeof options.lessText == "string" && options.lessText.length > 0){
-            lessLink = $("<a href='javascript:;' class='abbreviate_less_link'>"+options.lessText+"</a>");
-            obj.append(lessLink);
-            lessLink.click(shortHandler);
-          }
+(function ($) {
+    $.fn.abbreviate = function (options) {
+
+        options = $.extend({
+            length: 15,
+            moreText: "more",
+            lessText: "less",
+            ellipsis: ".."
+        }, options);
+
+        /**
+         * traverse node tree recursively and shorten/remove nodes
+         *
+         * @param node
+         * @param acc
+         * @returns {boolean}
+         */
+        var abbreviateNode = function (node, acc) {
+
+            //limit already reached?
+            if(acc.length >= options.length) {
+                node.remove();
+                return;
+            }
+
+            //is textnode?
+            if (node[0].nodeType == 3) {
+                acc.length = acc.length + node[0].textContent.length;
+                if(acc.length > options.length) {
+                    var endIndex = node[0].textContent.length - (acc.length - options.length);
+                    node[0].textContent = node[0].textContent.slice(0, endIndex);
+                }
+                return;
+            }
+
+            //work on copy of array
+            var children = node.contents().slice();
+            for (var i = 0; i < children.length; i++) {
+                abbreviateNode($(children[i]), acc);
+            }
         };
-        var shortHandler = function(){
-          obj.text(shortText+" ");
-          moreLink = $("<a href='javascript:;' class='abbreviate_more_link'>"+options.moreText+"</a>");
-          obj.append(moreLink);
-          moreLink.click(fullHandler);          
-        };
-        shortHandler();
-      }
-    });
-  }
-})( jQuery ); 
+
+        return this.each(function () {
+            var node = $(this);
+
+            //no abbreviation necessary?
+            if(node.text().length <= options.length) {
+                return;
+            }
+
+            var fullContent = node.html();
+            if(typeof options.lessText == "string" && options.lessText.length > 0){
+                fullContent += " <a href='#' class='abbreviate_less_link'>"+options.lessText+"</a>";
+            }
+
+            abbreviateNode(node, {'length' : 0});
+
+            var shortContent = node.html();
+            shortContent += options.ellipsis+"<a href='#' class='abbreviate_more_link'>"+options.moreText+"</a>";
+
+            node.html(shortContent);
+            node.on('click', '.abbreviate_less_link', function(){ node.html(shortContent); return false; });
+            node.on('click', '.abbreviate_more_link', function(){ node.html(fullContent); return false; });
+        });
+    }
+})(jQuery);
