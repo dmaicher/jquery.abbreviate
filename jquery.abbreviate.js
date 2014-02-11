@@ -15,11 +15,7 @@
         }, options);
 
         /**
-         * traverse node tree recursively and shorten/remove nodes
-         *
-         * @param node
-         * @param acc
-         * @returns {boolean}
+         * traverses node tree recursively and shortens/removes nodes
          */
         var abbreviateNode = function (node, acc) {
 
