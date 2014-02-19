@@ -27,10 +27,10 @@
 
             //is textnode?
             if (node[0].nodeType == 3) {
-                acc.length = acc.length + node[0].textContent.length;
+                acc.length = acc.length + node[0].nodeValue.length;
                 if(acc.length > options.length) {
-                    var endIndex = node[0].textContent.length - (acc.length - options.length);
-                    node[0].textContent = node[0].textContent.slice(0, endIndex);
+                    var endIndex = node[0].nodeValue.length - (acc.length - options.length);
+                    node[0].nodeValue = node[0].nodeValue.slice(0, endIndex);
                 }
                 return;
             }
