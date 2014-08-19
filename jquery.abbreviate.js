@@ -27,7 +27,6 @@
 
             //is textnode?
             if (node[0].nodeType == 3) {
-                node[0].nodeValue = $.trim(node[0].nodeValue);
                 acc.length = acc.length + node[0].nodeValue.length;
                 if(acc.length > options.length) {
                     var endIndex = node[0].nodeValue.length - (acc.length - options.length);
