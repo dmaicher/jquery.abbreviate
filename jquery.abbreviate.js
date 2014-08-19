@@ -1,7 +1,7 @@
 /*
  * abbreviate 2.0 - jQuery plugin for abbreviating text
  *
- * Copyright (c) 2014 David Maicher (http://blog.dmaicher.de)
+ * Copyright (c) 2014 David Maicher (https://github.com/dmaicher)
  * Licensed under MIT (http://opensource.org/licenses/MIT)
  */
 (function ($) {
@@ -27,6 +27,7 @@
 
             //is textnode?
             if (node[0].nodeType == 3) {
+                node[0].nodeValue = $.trim(node[0].nodeValue);
                 acc.length = acc.length + node[0].nodeValue.length;
                 if(acc.length > options.length) {
                     var endIndex = node[0].nodeValue.length - (acc.length - options.length);
@@ -46,12 +47,12 @@
             var node = $(this);
 
             //no abbreviation necessary?
-            if(node.text().length <= options.length) {
+            if($.trim(node.text()).length <= options.length) {
                 return;
             }
 
             var fullContent = node.html();
-            if(options.lessText){
+            if(options.lessText.length){
                 fullContent += " <a href='#' class='abbreviate_less'>"+options.lessText+"</a>";
             }
 
