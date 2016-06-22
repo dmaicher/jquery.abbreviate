@@ -1,5 +1,5 @@
 /*
- * abbreviate 2.0 - jQuery plugin for abbreviating text
+ * abbreviate - jQuery plugin for abbreviating text
  *
  * Copyright (c) 2014 David Maicher (https://github.com/dmaicher)
  * Licensed under MIT (http://opensource.org/licenses/MIT)
@@ -42,6 +42,10 @@
             }
         };
 
+        var getValue = function(value) {
+            return $.isFunction(value) ? value() : value;
+        };
+
         return this.each(function () {
             var node = $(this);
 
@@ -51,18 +55,20 @@
             }
 
             var fullContent = node.html();
-            if(options.lessText.length){
-                fullContent += " <a href='#' class='abbreviate_less'>"+options.lessText+"</a>";
+            var lessText = getValue(options.lessText);
+            if(lessText.length){
+                fullContent += " <a href='#' class='abbreviate-less'>"+lessText+"</a>";
             }
 
             abbreviateNode(node, {'length' : 0});
 
             var shortContent = node.html();
-            shortContent += options.ellipsis+"<a href='#' class='abbreviate_more'>"+options.moreText+"</a>";
+            var moreText = getValue(options.moreText);
+            shortContent += options.ellipsis+"<a href='#' class='abbreviate-more'>"+moreText+"</a>";
 
             node.html(shortContent);
-            node.on('click', '.abbreviate_less', function(){ node.html(shortContent); return false; });
-            node.on('click', '.abbreviate_more', function(){ node.html(fullContent); return false; });
+            node.on('click', '.abbreviate-less', function(){ node.html(shortContent); return false; });
+            node.on('click', '.abbreviate-more', function(){ node.html(fullContent); return false; });
         });
     }
 })(jQuery);
