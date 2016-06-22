@@ -1,0 +1,18 @@
+{
+  "name": "jquery-abbreviate",
+  "main": "jquery.abbreviate.js",
+  "homepage": "https://github.com/dmaicher/jquery.abbreviate",
+  "authors": [
+    "dmaicher <mail@dmaicher.de>"
+  ],
+  "description": "Abbreviates the text content of elements and adds \"more\" and \"less\" links at the end to toggle full/abbreviated content.",
+  "keywords": [
+    "jquery",
+    "text",
+    "abbreviation"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2"
+  }
+}
