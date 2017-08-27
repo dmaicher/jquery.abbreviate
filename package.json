@@ -1,0 +1,24 @@
+{
+  "name": "jquery.abbreviate",
+  "version": "1.3.0",
+  "description": "jQuery plugin to abbreviate the text of HTML elements and adds \"show more\" / \"show less\" toggles",
+  "main": "jquery.abbreviate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmaicher/jquery.abbreviate.git"
+  },
+  "keywords": [
+    "jQuery",
+    "abbreviation",
+    "plugin"
+  ],
+  "author": "David Maicher",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmaicher/jquery.abbreviate/issues"
+  },
+  "homepage": "https://github.com/dmaicher/jquery.abbreviate#readme"
+}
